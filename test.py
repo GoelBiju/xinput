@@ -22,7 +22,7 @@ MyRead = pyxinput.rController(1)
 #     time.sleep(0.5)
 
 # Create a virtual controller to test setting buttons/moving thumbstick.
-MyVirtual = pyxinput.vController(percent=False)
+# MyVirtual = pyxinput.vController(percent=False)
 
 # Make the controller keep on scrolling to the left
 # by using the Left Thumbstick (x-axis), max left value is -32768
@@ -95,24 +95,24 @@ MyVirtual = pyxinput.vController(percent=False)
 # and mimic this onto the virtual controller.
 async def start_emulation():
 
-    button_x = False
-    button_y = False
-    button_a = False
-    button_b = False
-
-    button_left_shoulder = False
-    button_right_shoulder = False
-
-    button_dpad_up = False
-    button_dpad_right = False
-    button_dpad_down = False
-    button_dpad_left = False
-
-    button_left_thumb = False
-    button_right_thumb = False
-
-    button_start = False
-    button_back = False
+    # button_x = False
+    # button_y = False
+    # button_a = False
+    # button_b = False
+    #
+    # button_left_shoulder = False
+    # button_right_shoulder = False
+    #
+    # button_dpad_up = False
+    # button_dpad_right = False
+    # button_dpad_down = False
+    # button_dpad_left = False
+    #
+    # button_left_thumb = False
+    # button_right_thumb = False
+    #
+    # button_start = False
+    # button_back = False
 
     async with websockets.connect('ws://youthful-driver.glitch.me/') as websocket:
 
@@ -121,7 +121,7 @@ async def start_emulation():
         print(response)
 
         while True:
-            gamepad_dict = MyRead.gamepad.__dict__()
+            gamepad_dict = MyRead.gamepad.__dict__()  # try str()
             gamepad_buttons = MyRead.buttons
             print('Read controller data.')
 
