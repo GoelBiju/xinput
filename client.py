@@ -3,6 +3,7 @@ import _thread
 import ast
 
 import pyxinput
+# import json
 
 
 class VirtualGamepad:
@@ -267,15 +268,19 @@ def on_open(ws):
         previous_pad = None
         previous_buttons = None
         while True:
+            # msg = {'id': id, 'data': None}
+
             # TODO: Does adding this in change the play/movement in real time games?
-            pad = str(my_read.gamepad.__dict__())
+            pad = my_read.gamepad.__dict__()
             if pad != previous_pad:
-                ws.send(pad)
+                # msg['data'] = pad
+                ws.send(str(pad))
             previous_pad = pad
 
-            buttons = str(my_read.buttons)
+            buttons = my_read.buttons
             if buttons != previous_buttons:
-                ws.send(buttons)
+                # msg['data'] = buttons
+                ws.send(str(buttons))
             previous_buttons = buttons
             # print('Read controller data')
     _thread.start_new_thread(run, ())
@@ -287,10 +292,11 @@ if __name__ == "__main__":
 
     # Create an instance of the virtual gamepad.
     my_gamepad = VirtualGamepad()
-    #
+
     ws = websocket.WebSocketApp("ws://youthful-driver.glitch.me/",
                                 on_message=on_message,
                                 on_error=on_error,
                                 on_close=on_close)
+
     ws.on_open = on_open
     ws.run_forever()
